@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+     /* * endrer alt på siden */
+
+* {
+    font-family: 'Itim', cursive;
+}
+
+body {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('background.jpg');
+    background-position: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: rgb(255, 255, 255);
+}
+
+h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 50px;
+    color: rgb(226, 43, 43);
+}
+
+/* HR er et linjeskifte, har stylet den til å se noe penere ut */
+hr {
+    margin: 50px auto;
+    border: 0;
+    width: 10%;
+    border-top: red 5px dotted;
+}
+
+table {
+    margin: 0 auto;
+    text-align: center;
+}
+
+thead {
+    text-align: center;
+}
+
+.headline {
+    padding: 50px;
+}
+
+.status-div {
+    padding: 50px 0px;
+    text-align: center;
+}
+
+
+.buttonTest {
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    vertical-align: middle;
+    background: rgba(0, 0, 0, 0);
+    border: 0;
+    cursor: pointer;
+}
+
+.littTilHøyre {
+    margin-left: 10px;
+}
+
+.resetButton {
+    font-size: 20px;
+    width: 30%;
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    color: white;
+    text-shadow: 1px 1px 2px red;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+
+// Lag en nettside der du er en pokemontrener!
+// &nbsp
+
+// På nettsiden din kan du velge å gå i gresset, eller gå i kamp mot en annen pokemontrener.
+
+// Om du går i gresset kan du fange forskjellige pokemon du møter på. Dersom du har en eller
+//flere pokemen, kan du velge en av dem å sende sende ut i kamp mot den pokemon du møter dersom
+//du ikke vil fange den.
+
+// Løs oppgaven i MVC - med objekter og arrays av objekter
+
+//model
+
+const pokemon = [
+  { name: 'Pikachu', type: 'Electric', level: 25, image: 'pokemon.png' },
+  { name: 'Charmander', type: 'Fire', level: 15, image: 'pokemon2.png' },
+  { name: 'Squirtle', type: 'Water', level: 20,image: 'Pikachu.png' },
+  { name: 'Bulbasaur', type: 'Grass', level: 18, image: 'Pikachu.png' },
+  { name: 'Eevee', type: 'Normal', level: 22, image: 'Pikachu.png' },
+  { name: 'Fearow', type: 'Electric', level: 25, image: 'Pikachu.png' },
+  { name: 'Arbok', type: 'Fire', level: 15, image: 'Pikachu.png' },
+  { name: 'Sandshrew', type: 'Water', level: 21, image: 'Pikachu.png' },
+  { name: 'Ivysaur', type: 'Grass', level: 18,image: 'Pikachu.png' },
+  { name: 'Venusaur', type: 'Normal', level: 22,image: 'Pikachu.png' },
+];
+
+// function getRandomPokemon() {
+
+  
+//   const randomIndex = Math.floor(Math.random() * pokemon.length);
+//   const randomPokemon = pokemon[randomIndex];
+  
+//   console.log(`You have encountered a wild ${randomPokemon.name}! Type: ${randomPokemon.type}. Level: ${randomPokemon.level}.`);
+// }
+
+// const img = document.createElement('img');
+//         img.src = randomPokemon.image;
+//         img.alt = randomPokemon.name;
+//         document.getElementById('pokemon-container').appendChild(img);
+
+// getRandomPokemon(); // example output: "You have encountered a wild Squirtle! Type: Water. Level: 20."
+
+// //view
+
+function view(){
+    document.getElementById('app').innerHTML += /*HTML*/ `
+     <h1>Pokemon trainer!</h1><br>
+        <button onclick="gåiKamp()">Gå i kamp</button>
+        <button onclick="gåiGresset()">Gå i gresset</button>&nbsp<br>
+        <button onclick="listPokemen(pokemon)">List dine pokemen</button>
+        <table>
+    <thead>
+      <tr>
+        <th>Navn</th>
+        <th>Type</th>
+        <th>Nivå</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+         `;
+       }
+
+
+//dette trengte jeg for å få elementet app til å bli definert av en aller annen grunn
+        window.onload = function () {
+ view();
+ }
+
+
+
+//controller
+
+function gåiGresset() {
+  var img = new Image();
+  img.src = 'pokemon2.png';
+  img.onload = function() {
+    var screenWidth = window.innerWidth;
+    var screenHeight = window.innerHeight;
+    var imgWidth = img.width;
+    var imgHeight = img.height;
+    var randomX = Math.floor(Math.random() * (screenWidth - imgWidth));
+    var randomY = Math.floor(Math.random() * (screenHeight - imgHeight));
+    img.style.position = "absolute";
+    img.style.left = randomX + "px";
+    img.style.top = randomY + "px";
+    document.body.appendChild(img);
+  }
+}
+
+function gåiKamp() {
+  var img = new Image();
+  img.src = 'pokemon.png';
+  img.onload = function() {
+    var screenWidth = window.innerWidth;
+    var screenHeight = window.innerHeight;
+    var imgWidth = img.width;
+    var imgHeight = img.height;
+    var randomX = Math.floor(Math.random() * (screenWidth - imgWidth));
+    var randomY = Math.floor(Math.random() * (screenHeight - imgHeight));
+    img.style.position = "absolute";
+    img.style.left = randomX + "px";
+    img.style.top = randomY + "px";
+    document.body.appendChild(img);
+  }
+}
+
+// //function listPokemen2(pokemon) {
+//   // Get the names of the object's properties
+//   //const names = Object.keys(pokemon);
+
+//   // Create a table element and table header row
+//   //const table = document.createElement('table');
+//   const headerRow = table.insertRow();
+//   const headerCell = document.createElement('th');
+//   headerCell.textContent = 'Names';
+//   headerRow.appendChild(headerCell);
+
+//   // Create a table row for each name and insert it into the table
+//   names.forEach(name => {
+//     const row = table.insertRow();
+//     const cell = row.insertCell();
+//     cell.textContent = name;
+//   });
+
+//   // Add the table to the document body
+//   document.body.appendChild(table);
+// }
+
+
+
+function listPokemen(){
+    const tbody = document.querySelector('table tbody');
+
+pokemon.forEach((item) => {
+  const row = tbody.insertRow(item);
+  const nameCell = row.insertCell();
+  const typeCell = row.insertCell();
+  const levelCell = row.insertCell();
+  
+  nameCell.innerText = item.name;
+  typeCell.innerText = item.type;
+  levelCell.innerText = item.level;
+});
+}
+
+</script>
+
+</body>
+</html>
